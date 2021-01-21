@@ -21,7 +21,7 @@ Dropdown is a controlled component with a sub-component Dropdown.Item.
 
 ### Dropdown
 #### Props:
-1. label: The label above the dropdown that explains its purpose for improved accessablity).
+1. label: The label above the dropdown that explains its purpose for improved accessablity.
 2. value: The internal value(s) of the selected item(s), hidden from the users.
 3. multiple: Determines whether multiple items can be selected at the same time, default to false. 
 Multiple also enables an additional options "ALL" that allows user to select/deselect all items.

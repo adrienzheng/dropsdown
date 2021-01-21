@@ -6,7 +6,7 @@ import '../styles/Dropdown.scss'
 export default function Dropdown({label, value, multiple, children, onChange, dark, disabled, onItemClick, sortBy, compare}) {
 
   //The Dropdown is a controlled component, which takes following props:
-  //label: The label above the dropdown that explains its purpose for improved accessablity).
+  //label: The label above the dropdown that explains its purpose for improved accessablity.
   //value: The internal value(s) of the selected item(s), hidden from the users.
   //multiple: Determines whether multiple items can be selected at the same time, default to false.
   //          Multiple also enables an additional options "ALL" that allows user to select/deselect all items.
