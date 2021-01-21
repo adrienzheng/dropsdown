@@ -1,0 +1,225 @@
+.dropdown {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin: 1.2rem 0.5rem;
+
+  &.disabled {
+    pointer-events: none;
+    color: lightgray;
+
+    svg {
+      fill: lightgray;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  label {
+    position: absolute;
+    margin-left: 0.5rem;
+    top: 0.5rem;
+    font-size: 1.2rem;
+    z-index: 1;
+    transition: all 0.3s;
+    pointer-events: none;
+
+    &.floated {
+      top: -1rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .input-cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    transition: all 0.3s;
+    
+    &:hover {
+      background-color: rgba(200, 200, 200, 0.7);
+    }
+
+    &:active {
+      background-color: rgba(150, 150, 150, 0.7);
+    }
+
+    input {
+      border: none;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background-color: transparent;
+      cursor: pointer;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    svg {
+      width: 0.7rem;
+      height: 1.2rem;
+      transition: all 0.3s;
+      
+      &.left {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .options {
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    padding: 0.5rem;
+    width: 100%;
+    max-height: 16rem;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    list-style-type: none;
+    box-shadow: 3px 3px 6px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+
+    .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 3rem;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &.all {
+        font-weight: 600;
+      }
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      &:hover {
+        background-color: rgba(150, 150, 150, 0.3);
+      }
+
+      .disc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid darkgray;
+        flex: 0 0 1.2rem;
+        height: 1.2rem;
+        border-radius: 100%;
+
+        .disc-dot {
+          width: 60%;
+          height: 60%;
+          border-radius: 100%;
+          background-color: darkgray;
+          opacity: 0;
+          transition: all 0.3s;
+        }
+
+        &.selected .disc-dot {
+          opacity: 1;
+        }
+
+        &.square {
+          border-radius: 10%;
+          .disc-dot {
+            border-radius: 20%;
+          }
+        }
+      }
+    }
+  }
+
+  &.dark {
+
+    * {
+      color: white;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      * {
+        color: darkgray;
+      }
+  
+      svg {
+        fill: darkgray;
+      }
+    }
+    
+    .input-cont {
+      background-color: rgba(0, 0, 0, 0.7);
+
+      &:hover {
+        background-color: rgba(100, 100, 100, 0.7);
+      }
+
+      &:active {
+        background-color: rgba(150, 150, 150, 0.7);
+      }
+    }
+
+    
+
+    svg {
+      fill: white;
+    }
+
+    .options {
+      background-color: rgba(0, 0, 0, 0.7);
+
+      .option {
+        &:hover {
+          background-color: rgba(250, 250, 250, 0.3);
+        }
+
+        .disc {
+          border-color: lightgray;
+
+          .disc-dot {
+            border-color: lightgray;
+          }
+        }
+      }
+    }
+  }
+}
+
+.item-enter {
+  transform: translate(0, -4rem);
+  opacity: 0;
+}
+.item-enter-active {
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: all 0.3s;
+}
+.item-exit {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+.item-exit-active {
+  transform: translate(0, -4rem);
+  opacity: 0;
+  transition: all 0.3s;
+}
