@@ -40,7 +40,7 @@ function Demo() {
           multiple
           label="Select States"
           onChange={handleStateChange}
-          onItemClick={({value, displayedText, prevSelection}) => alert(`you just clicked on the option "${displayedText}" with value ${value}, and your previously selected values are ${prevSelection.join(", ")}`)}
+          onItemClick={({value, displayedText, prevSelection}) => alert(`(Additional Action) You just clicked on the option "${displayedText}" with value ${value}, and your previously selected values are ${prevSelection.join(", ")}`)}
         >
           <Dropdown.Item value={0}>New York</Dropdown.Item>
           <Dropdown.Item value={1}>California</Dropdown.Item>

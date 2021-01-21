@@ -6,16 +6,16 @@ import '../styles/Dropdown.scss'
 export default function Dropdown({label, value, multiple, children, onChange, dark, disabled, onItemClick, sortBy, compare}) {
 
   //The Dropdown is a controlled component, which takes following props:
-  //label: The label above the dropdown that explains its purpose, optional (intended for improved accessablity).
+  //label: The label above the dropdown that explains its purpose for improved accessablity).
   //value: The internal value(s) of the selected item(s), hidden from the users.
   //multiple: Determines whether multiple items can be selected at the same time, default to false.
-  //          Multiple also enable an additional options "ALL" that allows user to select/deselect all items.
+  //          Multiple also enables an additional options "ALL" that allows user to select/deselect all items.
   //onChange: The callback function fired when the selection changes. function(value: number | string | array) => void
   //onItemClick: the additional callback passed to the item for extended actions defined by developers.
   //             It takes an object with three properties: 
   //             the internal value of the option clicked, the displayed text of the option clicked, and the previouly selected values.
   //             function(Object: {value: number | string, displayedText: number | string, prevSelection: number | string | array}) => void
-  //sortBy: 'value' or 'text', the parameter used to sort the options, either the internal value or the displayed text, default to value.
+  //sortBy: 'value' or 'text', the parameter used to sort the options, either the internal value or the displayed text, default to 'value'.
   //compare: the compare function used to sort the options, if not provided then sort acsending or alphabetically.
   //         function(a: number | string, b: number | string) => 1 | 0 | -1
   //disabled: When set to true, the dropdown becomes disabled and ignores all user interactions, default to false.
