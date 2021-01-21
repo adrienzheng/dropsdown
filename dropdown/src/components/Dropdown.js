@@ -72,7 +72,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     }
   }
 
-  const sort = () => {
+  const sort = () => { //sorts the options with the sortBy and compare props
     let sorted = [...children]
     let sb = sortBy === 'value' ? 'value' : 'children'
     if(compare && sortBy) {
@@ -86,7 +86,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     }
   }
 
-  const selectAll = () => {
+  const selectAll = () => { //Selects all available options
     let ar = []
     children.forEach(({props}) => {
       if (!props.disabled) {
@@ -96,11 +96,11 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     onChange(ar)
   }
 
-  const deselectAll = () => {
+  const deselectAll = () => { //Deselects all options
     onChange([])
   }
 
-  const allSelected = () => {
+  const allSelected = () => { //determine if all options are selected
     if(children.filter(child => {
       if(!child.props.disabled) {
         return true
