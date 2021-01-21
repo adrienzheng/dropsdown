@@ -8,7 +8,6 @@ function Demo() {
   const [states, setStates] = useState([])
   const [month, setMonth] = useState(null)
   const [counties, setCounties] = useState([])
-  const [] = useState([])
 
   const handleYearChange = (value) => {
     setYear(value)
@@ -36,13 +35,17 @@ function Demo() {
             <Dropdown.Item key={`year-${year}`} value={year}>{year}</Dropdown.Item>
           )}
         </Dropdown>
-        <Dropdown value={states} multiple label="Select States" onChange={handleStateChange}>
+        <Dropdown
+          value={states}
+          multiple
+          label="Select States"
+          onChange={handleStateChange}
+          onItemClick={({value, displayedText, prevSelection}) => alert(`you just clicked on the option "${displayedText}" with value ${value}, and your previously selected values are ${prevSelection.join(", ")}`)}
+        >
           <Dropdown.Item value={0}>New York</Dropdown.Item>
           <Dropdown.Item value={1}>California</Dropdown.Item>
           <Dropdown.Item value={2} disabled>New Jersey</Dropdown.Item>
           <Dropdown.Item value={3}>Ohio</Dropdown.Item>
-          <Dropdown.Item value={4}>New Hampshire</Dropdown.Item>
-          <Dropdown.Item value={5}>New Mexico</Dropdown.Item>
         </Dropdown>
         <Dropdown value={null} label="Disabled Dropdown" disabled>
           <Dropdown.Item value={0}>Item 1</Dropdown.Item>
@@ -69,12 +72,19 @@ function Demo() {
           <Dropdown.Item value={11}>November</Dropdown.Item>
           <Dropdown.Item value={12}>December</Dropdown.Item>
         </Dropdown>
-        <Dropdown value={counties} multiple label="Select Counties" onChange={setCounties} dark>
+        <Dropdown value={counties} multiple label="Select Counties" onChange={handleCountyChange} dark>
           <Dropdown.Item value={"Alameda County"}>Alameda County</Dropdown.Item>
-          <Dropdown.Item value={"Fresno County"}>Fresno County</Dropdown.Item>
-          <Dropdown.Item value={"Glenn County"}>Glenn County</Dropdown.Item>
-          <Dropdown.Item value={"San Francisco"}>San Francisco</Dropdown.Item>
           <Dropdown.Item value={"Santa Clara County"}>Santa Clara</Dropdown.Item>
+          <Dropdown.Item value={"Fresno County"}>Fresno County</Dropdown.Item>
+          <Dropdown.Item value={"San Francisco"}>San Francisco</Dropdown.Item>
+          <Dropdown.Item value={"Glenn County"}>Glenn County</Dropdown.Item>
+        </Dropdown>
+        <Dropdown value={counties} multiple label="Select Counties(sorted)" onChange={handleCountyChange} sortBy="text" compare={(a,b) => a>b ? 1 : -1} dark>
+          <Dropdown.Item value={"Alameda County"}>Alameda County</Dropdown.Item>
+          <Dropdown.Item value={"Santa Clara County"}>Santa Clara</Dropdown.Item>
+          <Dropdown.Item value={"Fresno County"}>Fresno County</Dropdown.Item>
+          <Dropdown.Item value={"San Francisco"}>San Francisco</Dropdown.Item>
+          <Dropdown.Item value={"Glenn County"}>Glenn County</Dropdown.Item>
         </Dropdown>
         <Dropdown value={null} label="Disabled Dropdown" disabled dark>
           <Dropdown.Item value={0}>Item 1</Dropdown.Item>
