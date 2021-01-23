@@ -55,6 +55,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
   }, [onChange])
 
   const handleItemClick = useCallback((val, text) => {
+    // the callback function passed to each option that handles the additional actions defined by developers in the props
     onItemClick({value: val, displayedText: text, prevSelection: value})
   }, [onItemClick, value])
 
