@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, useMemo} from 'react'
+import {useState, useEffect, useRef, useMemo, useCallback, memo} from 'react'
 import {CSSTransition} from 'react-transition-group'
 
 import '../styles/Dropdown.scss'
@@ -46,33 +46,20 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     }
   }, [dropdown])
 
-  const handleItemClick = (newValue) => {
-    // the callback function passed to each option that returns the option's value whenever it is clicked
-    // it will then call the onChange callback to inform the parent component that the value(s) has changed
+  const _handleItemClick = useCallback((newValue) => {
+    // the callback function passed to each option that updates the selection whenever it is clicked
+    // it will then call the onChange callback to inform the parent component that the selection has changed
     if(onChange !== undefined) {
-      if(multiple) {
-        // if the dropdown allows multiple selection, return the list of updated selected value
-        let ar = []
-        let exist = false
-        value.forEach(val => {
-          if (newValue === val) {
-            exist = true
-          } else {
-            ar.push(val)
-          }
-        })
-        if(!exist) {
-          ar.push(newValue)
-        }
-        onChange(ar)
-      } else {
-        // otherwise, returns the new value
-        onChange(newValue === value ? null : newValue)
-      }
+      onChange(newValue)
     }
-  }
+  }, [onChange])
+
+  const handleItemClick = useCallback((val, text) => {
+    onItemClick({value: val, displayedText: text, prevSelection: value})
+  }, [onItemClick, value])
 
   const sort = (children, sortBy, compare) => { //sorts the options with the sortBy and compare props
+    console.log('sort')
     let sorted = [...children]
     let sb = sortBy === 'value' ? 'value' : 'children'
     if(compare && sortBy) {
@@ -91,7 +78,6 @@ export default function Dropdown({label, value, multiple, children, onChange, da
   }, [children, sortBy, compare])
 
   const selectAll = () => { //Selects all available options
-    console.log("sort")
     let ar = []
     children.forEach(({props}) => {
       if (!props.disabled) {
@@ -143,16 +129,16 @@ export default function Dropdown({label, value, multiple, children, onChange, da
                 <div className="disc-dot"></div>
               </div>
             </li>}
-            {sorted.map(({props}) => {
-              return <Dropdown.Item
+            {sorted.map(({props}) => 
+              <Dropdown.Item
                 {...props}
                 key={props.value}
-                onItemClick={onItemClick ? (val, text) => onItemClick({value: val, displayedText: text, prevSelection: value}) : undefined}
-                _onItemClick={handleItemClick}
+                onItemClick={onItemClick ? handleItemClick : undefined}
+                _onItemClick={_handleItemClick}
                 _selected={multiple ? value.includes(props.value) : props.value === value}
                 _checkBox={multiple}
               />
-            })}
+            )}
           </ul>
         </CSSTransition>
       </div>
@@ -160,7 +146,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
   )
 }
 
-Dropdown.Item = ({value, children, disabled, onItemClick, _onItemClick, _selected, _checkBox}) => {
+Dropdown.Item = memo(({value, children, disabled, onItemClick, _onItemClick, _selected, _checkBox}) => {
   //Dropdown.Item is a controlled component that renders the individual option within the dropdown.
   //It takes the following props:
   //value: the internal value of the item that is not displayed to the users.
@@ -174,11 +160,12 @@ Dropdown.Item = ({value, children, disabled, onItemClick, _onItemClick, _selecte
 
   //among the props above, _onItemClick, _selected, and _checkbox are handled automatically by the parent Dropdown component, and developers should not manipulate them directly.
   //to add additional function to the click action, please use onItemClick in the Dropdown component.
-
   const handleClick = () => { //fired when the item is clicked, whil call both _onItemClick and onItemclick passed by the parent Dropdown component.
     _onItemClick(value)
     onItemClick && onItemClick(value, children)
   }
+
+  console.log("render")
 
   return (
     <li className={`option ${disabled ? "disabled" : ""}`}
@@ -191,4 +178,4 @@ Dropdown.Item = ({value, children, disabled, onItemClick, _onItemClick, _selecte
       </div>
     </li>
   )
-}
+})
