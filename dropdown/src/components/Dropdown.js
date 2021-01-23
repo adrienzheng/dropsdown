@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useMemo} from 'react'
 import {CSSTransition} from 'react-transition-group'
 
 import '../styles/Dropdown.scss'
@@ -72,7 +72,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     }
   }
 
-  const sort = () => { //sorts the options with the sortBy and compare props
+  const sort = (children, sortBy, compare) => { //sorts the options with the sortBy and compare props
     let sorted = [...children]
     let sb = sortBy === 'value' ? 'value' : 'children'
     if(compare && sortBy) {
@@ -86,7 +86,12 @@ export default function Dropdown({label, value, multiple, children, onChange, da
     }
   }
 
+  const sorted = useMemo(() => {
+    return sort(children, sortBy, compare)
+  }, [children, sortBy, compare])
+
   const selectAll = () => { //Selects all available options
+    console.log("sort")
     let ar = []
     children.forEach(({props}) => {
       if (!props.disabled) {
@@ -138,7 +143,7 @@ export default function Dropdown({label, value, multiple, children, onChange, da
                 <div className="disc-dot"></div>
               </div>
             </li>}
-            {sort(children).map(({props}) => {
+            {sorted.map(({props}) => {
               return <Dropdown.Item
                 {...props}
                 key={props.value}
